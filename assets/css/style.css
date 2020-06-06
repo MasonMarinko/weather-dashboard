@@ -22,6 +22,50 @@
     line-height: 1.5;
     font-size: 16px;
   }
+
+  .today-info {
+    height: 50px;
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+
+  .today-city {
+    height: 50px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+  }
+
+  .today-text {
+    font-weight: lighter;
+    font-size: 17px;
+    margin-left: 10px;
+  }
+
+  .current-height {
+    height: 600px;
+  }
+
+  .card-columns {
+    height: 250px;
+  }
+
+  .uv-index {
+    background-color: red;
+    color: white;
+    font-weight: lighter;
+    font-size: 14px;
+    margin-left: 7px;
+    padding: 8px;
+    border-radius: var(--border-radius);
+  }
+
+  .future-weather-section {
+    padding-top: 10px;
+    height: 250px;
+    padding-right: 10px;
+    margin: 1rem;
+  }
   
   h1,
   h2,
@@ -29,7 +73,7 @@
   h4,
   h5,
   h6 {
-    font-weight: 700;
+    font-weight: 650;
     margin: 0;
     color: var(--dark);
     line-height: 1.25;
@@ -42,6 +86,11 @@
   
   p {
     font-size: 1.2rem;
+  }
+
+  .current-weather-section {
+    border: 1px solid black;
+    width: 100%;
   }
   
    .btn {
@@ -128,8 +177,7 @@
   .app-title {
     font-size: 3rem;
     color: rgb(0, 204, 255);
-    background-color: transparent
-    color: var(--dark);
+    background-color: transparent;
     padding: 0 10px;
     display: inline-block;
   }
@@ -137,6 +185,16 @@
   .list-group {
     padding: 0;
     list-style: none;
+  }
+
+  .weekly-info {
+    color: white;
+    padding: 14px;
+    font-size: medium;
+  }
+
+  .weekly-date {
+    font-size: large;
   }
   
   .list-item {
@@ -171,6 +229,9 @@
   .card {
     margin: 0 0 20px 0;
     border-radius: var(--border-radius);
+    min-width: 150px;
+    padding: 0;
+    padding-left: 5px;
   }
   
   .card-header {
@@ -178,9 +239,6 @@
     background-color: var(--dark);
     padding: 2.5%;
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
-  }
-  
-  .card-body {
   }
   
   /* FORM */
@@ -225,6 +283,7 @@
   .flex-row {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
   }
   
   .flex-column {
@@ -315,6 +374,7 @@
   
   .col-12 {
     flex: 0 0 100%;
+    width: 100%;
   }
   
   /* col-sm */
