@@ -2,8 +2,8 @@ const m = moment();
 var searchBtn = document.querySelector("#user-form");
 var searchEl = document.querySelector("#username");
 var todayDateEl = document.querySelector('#repo-search-term');
-var todayTempEl = document.querySelector("#temp-1");
-var todayHumidEl = document.querySelector("#humid-1");
+var todayTempEl = document.querySelector("#temp-main");
+var todayHumidEl = document.querySelector("#humid-main");
 var todayWindEl = document.querySelector("#wind-1");
 var todayUvEl = document.querySelector("#uv-1");
 var list = JSON.parse(localStorage.getItem('newUserInput')) || {};
@@ -91,25 +91,39 @@ var formSubmitFiveDay = function (input) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + input + ",us&APPID=35d3ddb8208b03fbaf1197e2a757e86e&units=imperial"
     fetch(apiUrl)
     .then(function (response) {
-        console.log(response)
         //==========request is successful==============//
             response.json().then(function (data) {
-                console.log(data)
                 fiveDayTemp(data);
             })
     })
 };
 
+// fiveDayTemp = function (data) {
+//     for (var i = 0; i < 33; i=i+8) {
+//         var tempStartEl = $("#temp-" + (i));
+//         var tempIncrement = data.list[i].main.temp;
+//         console.log(tempStartEl)
+//         tempStartEl[0].textContent = tempIncrement
+// }
+// };
+
 fiveDayTemp = function (data) {
-    for (var i = 0; i < 6; i++) {
-        var tempStartEl = $("#temp-" + (i+2));
+
+    for (i=0; i < 40 ; i++) {
+        var timeVerify = (data.list[i].dt_txt)
+        var timeSplit = timeVerify.split(" ")
+        var finalTest = (timeSplit[1]) 
+        var tempStartEl = $("#temp-" + (i));
         var tempIncrement = data.list[i].main.temp;
         console.log(tempStartEl)
+        console.log(tempIncrement)
         tempStartEl[0].textContent = tempIncrement
+
+        if (finalTest === "21:00:00") {   
+            
+        }
+    }
 }
-};
-
-
 
 // .list[0].main.temp
 searchBtn.addEventListener("submit", formSubmitHandler);
