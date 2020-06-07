@@ -8,9 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Weather Dashboard</title>
 </head>
@@ -29,13 +26,14 @@
         <form id="user-form" class="card-body">
           <label class="form-label text-uppercase" for="username">Search for a City:</label>
           <div class="flex-row btn-align">
-            <input name="username" placeholder="City, State" id="username" type="text" autofocus="true" class="form-input" />
+            <input name="username" placeholder="City, State (Ex: Lehi, UT)" id="username" type="text" autofocus="true" class="form-input" />
             <button type="submit" class="btn-right"><i class="fas fa-search"></i></button>
           </div>
         </form>
       </div>
       <div class="card">
         <div class="card-body" id="search-buttons">
+          <span class="card-body">TESTING</span>
         </div>
       </div>
     </div>
@@ -45,19 +43,19 @@
       <div class=" flex-row current-weather-section">
         <div class="current-weather">
           <div class="flex-row today-city">
-            <h2 class="subtitle"><span id="repo-search-term">St. George (6/5/2020)</span></h2>
+            <h2 class="subtitle"><span id="repo-search-term"></span></h2>
           </div>
           <div class="flex-row today-info">
-            <h3 class="today-text">Temperature:<span class="today-text" data=temp-1>90.9 F</span></h3>
+            <h3 class="today-text">Temperature:<span class="today-text" id="temp-1"></span></h3>
           </div>
           <div class="flex-row today-info">
-            <h3 class="today-text">Humidity:<span class="today-text" data=humid-1>41%</span></h3>
+            <h3 class="today-text">Humidity:<span class="today-text" id="humid-1" data=></span></h3>
           </div>
           <div class="flex-row today-info">
-            <h3 class="today-text">Wind Speed:<span class="today-text" data=wind-1>4.7 MPH</span></h3>
+            <h3 class="today-text">Wind Speed:<span class="today-text" id="wind-1" data=></span></h3>
           </div>
           <div class="flex-row today-info">
-            <h3 class="today-text">UV Index:<span class="uv-index" data=uv-1>9.49</span></h3>
+            <h3 class="today-text">UV Index:<span class="uv-index"4 id="uv-1"></span></h3>
           </div>
         </div>
         <div id="repos-container" class="list-group"></div>
@@ -74,80 +72,80 @@
         <div class="col-2 card bg-primary">
           <div class="flex-column">
             <div>
-              <h2 class="card-text weekly-info weekly-date">6/6/2020</h2>
+              <h2 class="card-text weekly-info weekly-date" id= "date-2"></h2>
             </div>
             <div>
               <p class="card-text weekly-info">SUNNY</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Temp: 91.38 F</p>
+              <p class="card-text weekly-info" id= "temp-2">Temp: 91.38 F</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Humidity: 43%</p>
+              <p class="card-text weekly-info"id= "humid-2">Humidity: 43%</p>
             </div>
           </div>
         </div>
         <div class="col-2 card bg-primary">
           <div class="flex-column">
             <div>
-              <h2 class="card-text weekly-info weekly-date">6/6/2020</h2>
+              <h2 class="card-text weekly-info weekly-date" id= "date-3"></h2>
             </div>
             <div>
               <p class="card-text weekly-info">SUNNY</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Temp: 91.38 F</p>
+              <p class="card-text weekly-info" id= "temp-3">Temp: 91.38 F</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Humidity: 43%</p>
+              <p class="card-text weekly-info" id= "humid-3">Humidity: 43%</p>
             </div>
           </div>
         </div>
         <div class="col-2 card bg-primary">
           <div class="flex-column">
             <div>
-              <h2 class="card-text weekly-info weekly-date">6/6/2020</h2>
+              <h2 class="card-text weekly-info weekly-date" id="date-4"></h2>
             </div>
             <div>
               <p class="card-text weekly-info">SUNNY</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Temp: 91.38 F</p>
+              <p class="card-text weekly-info" id= "temp-4">Temp: 91.38 F</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Humidity: 43%</p>
+              <p class="card-text weekly-info" id= "humid-4">Humidity: 43%</p>
             </div>
           </div>
         </div>
         <div class="col-2 card bg-primary">
           <div class="flex-column">
             <div>
-              <h2 class="card-text weekly-info weekly-date">6/6/2020</h2>
+              <h2 class="card-text weekly-info weekly-date" id= "date-5"></h2>
             </div>
             <div>
               <p class="card-text weekly-info">SUNNY</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Temp: 91.38 F</p>
+              <p class="card-text weekly-info" id= "temp-5">Temp: 91.38 F</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Humidity: 43%</p>
+              <p class="card-text weekly-info" id= "humid-5">Humidity: 43%</p>
             </div>
           </div>
         </div>
         <div class="col-2 card bg-primary">
           <div class="flex-column">
             <div>
-              <h2 class="card-text weekly-info weekly-date">6/6/2020</h2>
+              <h2 class="card-text weekly-info weekly-date" id= "date-6"></h2>
             </div>
             <div>
               <p class="card-text weekly-info">SUNNY</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Temp: 91.38 F</p>
+              <p class="card-text weekly-info" id= "temp-6">Temp: 91.38 F</p>
             </div>
             <div>
-              <p class="card-text weekly-info">Humidity: 43%</p>
+              <p class="card-text weekly-info" id= "humid-6">Humidity: 43%</p>
             </div>
           </div>
         </div>
@@ -159,6 +157,8 @@
 
 
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <script src="./assets/js/script.js"></script>
