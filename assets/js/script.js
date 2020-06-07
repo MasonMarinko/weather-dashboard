@@ -16,7 +16,7 @@ var getLocalWeather = function (user) {
         //==========request is successful==============//
         if (response.ok) {
             response.json().then(function (data) {
-                todayDisplay(data)
+                todayDisplay(data);
                 UvIndexToday(data);
             });
         } else {
@@ -35,7 +35,7 @@ var formSubmitHandler = function (event) {
     event.preventDefault();
     //====get value from input element=====//
     var searchResult = searchEl.value;
-
+    formSubmitFiveDay(searchResult);
 
     if (searchResult) {
         getLocalWeather(searchResult);
@@ -72,17 +72,35 @@ var UvIndexToday = function (data) {
 
 var fiveDayDate = function() {
     for (var i = 2; i < 7; i++) {
-        
         var dateStartEl = $("#date-" + i);
-        var dateIncrement = m.add(10, 'days').calendar();
-        console.log(dateIncrement)
-        console.log(dateStartEl)
-        // dateStart.textContent = parseInt(m.format('HH'))
+        var dateIncrement = m.add(1, 'days').format('L');
+        dateStartEl[0].textContent = dateIncrement
     }
+};
+
+var formSubmitFiveDay = function (input) {
+    var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + input + ",us&APPID=35d3ddb8208b03fbaf1197e2a757e86e&units=imperial"
+    fetch(apiUrl)
+    .then(function (response) {
+        console.log(response)
+        //==========request is successful==============//
+            response.json().then(function (data) {
+                console.log(data)
+                fiveDayTemp(data);
+            })
+    })
+};
+
+fiveDayTemp = function (data) {
+    for (var i = 0; i < 5; i++) {
+        var tempStartEl = $("#temp-" + (i+2));
+        var tempIncrement = data.list[i].main.temp;
+        console.log(tempStartEl)
+        tempStartEl[0].textContent = tempIncrement
 }
+};
 
 
 
-
-
+// .list[0].main.temp
 searchBtn.addEventListener("submit", formSubmitHandler);
