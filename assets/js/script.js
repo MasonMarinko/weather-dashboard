@@ -65,16 +65,25 @@ var UvIndexToday = function (data) {
     fetch(apiUrl)
     .then(function(response) {
         response.json().then(function(data) {
-            todayUvEl.textContent=data[0].value;
+            var uvIndexCheck = data[0].value;
+            todayUvEl.textContent=uvIndexCheck;
+            if (uvIndexCheck >= 6) {
+                $("#uv-1").addClass("uv-index-bad")
+            } else if (uvIndexCheck < 6 && uvIndexCheck > 3) {
+                $("#uv-1").addClass("uv-index-mod")
+            } else if (uvIndexCheck <= 3) {
+                $("#uv-1").addClass("uv-index-good")
+            }
         })
     })
 }
 
 var fiveDayDate = function() {
+    
     for (var i = 2; i < 7; i++) {
         var dateStartEl = $("#date-" + i);
-        var dateIncrement = m.add(1, 'days').format('L');
-        dateStartEl[0].textContent = dateIncrement
+        var dateIncrement = m.add(1, 'days');
+        dateStartEl[0].textContent = dateIncrement.format('L')
     }
 };
 
@@ -92,7 +101,7 @@ var formSubmitFiveDay = function (input) {
 };
 
 fiveDayTemp = function (data) {
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
         var tempStartEl = $("#temp-" + (i+2));
         var tempIncrement = data.list[i].main.temp;
         console.log(tempStartEl)

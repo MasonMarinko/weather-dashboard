@@ -50,8 +50,28 @@
     height: 250px;
   }
 
-  .uv-index {
+  .uv-index-bad {
     background-color: red;
+    color: white;
+    font-weight: lighter;
+    font-size: 14px;
+    margin-left: 7px;
+    padding: 8px;
+    border-radius: var(--border-radius);
+  }
+
+  .uv-index-mod {
+    background-color: yellow;
+    color: black;
+    font-weight: lighter;
+    font-size: 14px;
+    margin-left: 7px;
+    padding: 8px;
+    border-radius: var(--border-radius);
+  }
+
+  .uv-index-good {
+    background-color: green;
     color: white;
     font-weight: lighter;
     font-size: 14px;
