@@ -44,16 +44,26 @@ var formSubmitHandler = function (event) {
 }
 
 var todayDisplay = function (data) {
+    console.log(data)
     const m = moment();
-    var currentCity = data.name
-    var currentTemp = data.main.temp
-    var currentHum = data.main.humidity
-    var currentWind = data.wind.speed
+    var currentCity = data.name;
+    var currentTemp = data.main.temp;
+    var currentHum = data.main.humidity;
+    var currentWind = data.wind.speed;
+    var currentIcon = data.weather[0].main;
+    var IconEl = $("#icon-info")
     var NowDate = m.format('L');
     todayDateEl.textContent = currentCity + ' (' + NowDate + ')';
     todayTempEl.textContent = currentTemp + " \xB0 F";
     todayHumidEl.textContent = currentHum + "%";
     todayWindEl.textContent = currentWind + " MPH";
+    if (currentIcon === "Clear") {
+        IconEl.addClass("oi oi-cloud")
+    } else if (currentIcon === "Clouds") {
+        IconEl.addClass("oi oi-sun")
+    } else if (currentIcon === "Rain") {
+        iconEl.addClass("oi oi-rain")
+    }
     fiveDayDate(m);
 };
 
@@ -97,44 +107,43 @@ var formSubmitFiveDay = function (input) {
         })
 };
 
-// fiveDayTemp = function (data) {
-//     for (var i = 0; i < 33; i=i+8) {
-//         var tempStartEl = $("#temp-" + (i));
-//         var tempIncrement = data.list[i].main.temp;
-//         console.log(tempStartEl)
-//         tempStartEl[0].textContent = tempIncrement
-//         var tempStartEl = $("#temp-" + (i));
-// }
-// };
-
 var fiveDayTemp = function (data) {
+    var tempArray = [];
+    var humidArray = [];
+    var iconArray = [];
     for (i = 0; i < data.list.length; i++) {
         var timeVerify = (data.list[i].dt_txt);
         var timeSplit = timeVerify.split(" ");
         var finalTest = (timeSplit[1]);
         var tempIncrement = data.list[i].main.temp;
+        var humidIncrement = data.list[i].main.humidity;
+        var iconIncrement = data.list[i].weather[0].main;
         if (finalTest === "00:00:00") {
-            var tempArray = [];
-            tempArray += tempIncrement
-            tempArrayContent(tempArray)
+            tempArray.push(tempIncrement)
+            humidArray.push(humidIncrement)
+            iconArray.push(iconIncrement)
         }
     }
+    tempArrayContent(tempArray, humidArray, iconArray)
 }
 
-var tempArrayContent= function (array) {
-    console.log(array)
+var tempArrayContent = function (temp, humid, icon) {
+    for (i = 0; i < temp.length; i++) {
+        var tempDayOverall = $("#temp-" + (i + 2));
+        var humidDayOverall = $("#humid-" + (i + 2));
+        var iconDayOverall = $("#icon-" + (i + 2));
+        tempDayOverall[0].textContent = "Temp: " + temp[i] + " \xB0 F";
+        humidDayOverall[0].textContent = "Humidity: " + humid[i] + "%";
+        if (icon[i] === "Clear") {
+            iconDayOverall.addClass("oi oi-cloud")
+        } else if (icon[i] === "Clouds") {
+            iconDayOverall.addClass("oi oi-sun")
+        } else if (icon[i] === "Rain") {
+            iconDayOverall.addClass("oi oi-rain")
+        }
+
     }
-    // var tempDayOne = $("#temp-2");
-    // var tempDayTwo =  $("#temp-3");
-    // var tempDayThree = $("#temp-4");
-    // var tempDayFour =  $("#temp-5");
-    // var tempDayFive =   $("#temp-6"); 
-    // debugger
-    // tempDayOne[0].textContent = array;
-    // tempDayTwo[0].textContent = array;
-    // tempDayThree[0].textContent = array;
-    // tempDayFour[0].textContent = array;
-    // tempDayFive[0].textContent = array;
+}
 
 
 // .list[0].main.temp
