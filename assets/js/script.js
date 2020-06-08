@@ -7,12 +7,13 @@ var todayWindEl = document.querySelector("#wind-1");
 var todayUvEl = document.querySelector("#uv-1");
 var list = JSON.parse(localStorage.getItem('newUserInput')) || {};
 
+
+//=====================Fetch local data for today card===========================//
 var getLocalWeather = function (user) {
 
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + user + ",us&APPID=35d3ddb8208b03fbaf1197e2a757e86e&units=imperial"
     fetch(apiUrl)
         .then(function (response) {
-            //==========request is successful==============//
             if (response.ok) {
                 response.json().then(function (data) {
                     todayDisplay(data);
@@ -23,7 +24,6 @@ var getLocalWeather = function (user) {
             }
         })
         .catch(function (error) {
-            //=====Notice this '.catch()' getting chained onto the end of the '.then()'
             alert("Unable to connect to Weather Services");
         });
 };
@@ -43,6 +43,7 @@ var formSubmitHandler = function (event) {
     }
 }
 
+//==================Today/Main box display============================//
 var todayDisplay = function (data) {
     console.log(data)
     const m = moment();
@@ -67,6 +68,7 @@ var todayDisplay = function (data) {
     fiveDayDate(m);
 };
 
+//=============== UV Index check, based on number color red, yellow, green==========//
 var UvIndexToday = function (data) {
     lonItem = data.coord.lon
     latItem = data.coord.lat
@@ -87,8 +89,8 @@ var UvIndexToday = function (data) {
         })
 }
 
+//==================set date in each 5 day forecast card=================//
 var fiveDayDate = function (m) {
-
     for (var i = 2; i < 7; i++) {
         var dateStartEl = $("#date-" + i);
         var dateIncrement = m.add(1, 'days');
@@ -96,17 +98,18 @@ var fiveDayDate = function (m) {
     }
 };
 
+//===================="forecast" data fetch for 5 day forecast==============//
 var formSubmitFiveDay = function (input) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + input + ",us&APPID=35d3ddb8208b03fbaf1197e2a757e86e&units=imperial"
     fetch(apiUrl)
         .then(function (response) {
-            //==========request is successful==============//
             response.json().then(function (data) {
                 fiveDayTemp(data);
             })
         })
 };
 
+//=================Gather all information for each day at 00:00:00 ============//
 var fiveDayTemp = function (data) {
     var tempArray = [];
     var humidArray = [];
@@ -127,6 +130,7 @@ var fiveDayTemp = function (data) {
     tempArrayContent(tempArray, humidArray, iconArray)
 }
 
+//================ Apply icons and information to DOM ===================//
 var tempArrayContent = function (temp, humid, icon) {
     for (i = 0; i < temp.length; i++) {
         var tempDayOverall = $("#temp-" + (i + 2));
@@ -145,6 +149,4 @@ var tempArrayContent = function (temp, humid, icon) {
     }
 }
 
-
-// .list[0].main.temp
 searchBtn.addEventListener("submit", formSubmitHandler);
