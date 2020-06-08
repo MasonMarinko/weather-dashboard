@@ -107,20 +107,34 @@ var formSubmitFiveDay = function (input) {
 // }
 // };
 
-fiveDayTemp = function (data) {
+var fiveDayTemp = function (data) {
     for (i = 0; i < data.list.length; i++) {
-        var tempArray = [];
         var timeVerify = (data.list[i].dt_txt);
         var timeSplit = timeVerify.split(" ");
         var finalTest = (timeSplit[1]);
         var tempIncrement = data.list[i].main.temp;
         if (finalTest === "00:00:00") {
-            tempArray += tempIncrement;
-            console.log(tempArray);
+            var tempArray = [];
+            tempArray += tempIncrement
+            tempArrayContent(tempArray)
         }
     }
 }
 
+var tempArrayContent= function (array) {
+    console.log(array)
+    }
+    // var tempDayOne = $("#temp-2");
+    // var tempDayTwo =  $("#temp-3");
+    // var tempDayThree = $("#temp-4");
+    // var tempDayFour =  $("#temp-5");
+    // var tempDayFive =   $("#temp-6"); 
+    // debugger
+    // tempDayOne[0].textContent = array;
+    // tempDayTwo[0].textContent = array;
+    // tempDayThree[0].textContent = array;
+    // tempDayFour[0].textContent = array;
+    // tempDayFive[0].textContent = array;
 
 
 // .list[0].main.temp
