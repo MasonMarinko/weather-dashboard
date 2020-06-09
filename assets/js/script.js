@@ -5,7 +5,7 @@ var todayTempEl = document.querySelector("#temp-main");
 var todayHumidEl = document.querySelector("#humid-main");
 var todayWindEl = document.querySelector("#wind-1");
 var todayUvEl = document.querySelector("#uv-1");
-const list = JSON.parse(localStorage.getItem('newUserInput')) || [];
+var list = JSON.parse(localStorage.getItem('weatherStorage')) || [];
 
 
 //=====================Fetch local data for today card===========================//
@@ -19,6 +19,7 @@ var getLocalWeather = function (user) {
                 btn.className = "card-body prev-search";
                 btn.innerHTML = user;
                 document.getElementById("search-buttons").appendChild(btn);
+                storeItems(user);
                 response.json().then(function (data) {
                     todayDisplay(data);
                     UvIndexToday(data);
@@ -27,10 +28,36 @@ var getLocalWeather = function (user) {
                 alert("Error: " + response.statusText + '. ' + 'Please make sure the format is City, State');
             }
         })
-        .catch(function (error) {
-            alert("Unable to connect to Weather Services");
-        });
+        // .catch(function (error) {
+        //     alert("Unable to connect to Weather Services");
+        // });
 };
+
+var storeItems = function (searchRes) {
+    const locInput = searchRes
+    console.log(locInput)
+
+    let weatherStorage;
+
+    if(localStorage.getItem('weatherStorage')===null) {
+        weatherStorage=[];
+    } else {
+        weatherStorage = JSON.parse(localStorage.getItem("weatherStorage"));
+    }
+    weatherStorage.push(locInput);
+
+    localStorage.setItem('weatherStorage', JSON.stringify(list) )
+}
+
+
+//======== Local Storage Recall  ======//
+function activateLocal(list) {
+    for (key in list) {
+      var weatherListItem = $(".local-store");
+      weatherListItem.children().text(list[key]);
+    }
+  }
+
 
 //===========Using this to capture the information put inside the input field====//
 var formSubmitHandler = function (event) {
@@ -41,7 +68,6 @@ var formSubmitHandler = function (event) {
 
     if (searchResult) { 
         getLocalWeather(searchResult);
-        localStorage.setItem("search", searchResult)
         searchEl.value = "";
     } else {
         alert("Please enter a city and/or state");
@@ -153,4 +179,5 @@ var tempArrayContent = function (temp, humid, icon) {
     }
 }
 
+activateLocal(list)
 searchBtn.addEventListener("submit", formSubmitHandler);
