@@ -5,7 +5,7 @@ var todayTempEl = document.querySelector("#temp-main");
 var todayHumidEl = document.querySelector("#humid-main");
 var todayWindEl = document.querySelector("#wind-1");
 var todayUvEl = document.querySelector("#uv-1");
-var list = JSON.parse(localStorage.getItem('newUserInput')) || {};
+const list = JSON.parse(localStorage.getItem('newUserInput')) || [];
 
 
 //=====================Fetch local data for today card===========================//
@@ -15,6 +15,10 @@ var getLocalWeather = function (user) {
     fetch(apiUrl)
         .then(function (response) {
             if (response.ok) {
+                var btn = document.createElement("BUTTON");
+                btn.className = "card-body prev-search";
+                btn.innerHTML = user;
+                document.getElementById("search-buttons").appendChild(btn);
                 response.json().then(function (data) {
                     todayDisplay(data);
                     UvIndexToday(data);
@@ -31,12 +35,13 @@ var getLocalWeather = function (user) {
 //===========Using this to capture the information put inside the input field====//
 var formSubmitHandler = function (event) {
     event.preventDefault();
-    //====get value from input element=====//
+
     var searchResult = searchEl.value;
     formSubmitFiveDay(searchResult);
 
-    if (searchResult) {
+    if (searchResult) { 
         getLocalWeather(searchResult);
+        localStorage.setItem("search", searchResult)
         searchEl.value = "";
     } else {
         alert("Please enter a city and/or state");
@@ -45,7 +50,6 @@ var formSubmitHandler = function (event) {
 
 //==================Today/Main box display============================//
 var todayDisplay = function (data) {
-    console.log(data)
     const m = moment();
     var currentCity = data.name;
     var currentTemp = data.main.temp;
