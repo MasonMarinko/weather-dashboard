@@ -1,4 +1,5 @@
 var searchBtn = document.querySelector("#user-form");
+var resultBtn = document.querySelector("#search-buttons")
 var searchEl = document.querySelector("#username");
 var todayDateEl = document.querySelector('#repo-search-term');
 var todayTempEl = document.querySelector("#temp-main");
@@ -15,11 +16,10 @@ var getLocalWeather = function (user) {
     fetch(apiUrl)
         .then(function (response) {
             if (response.ok) {
-                var btn = document.createElement("BUTTON");
-                btn.className = "card-body prev-search";
-                btn.innerHTML = user;
-                document.getElementById("search-buttons").appendChild(btn);
                 storeItems(user);
+                if (list.length < 4) {
+                    createButton(user);
+                }
                 response.json().then(function (data) {
                     todayDisplay(data);
                     UvIndexToday(data);
@@ -28,14 +28,21 @@ var getLocalWeather = function (user) {
                 alert("Error: " + response.statusText + '. ' + 'Please make sure the format is City, State');
             }
         })
-    .catch(function (error) {
-        alert("Unable to connect to Weather Services");
-    });
+        .catch(function (error) {
+            alert("Unable to connect to Weather Services");
+        });
 };
 
+var createButton = function (user) {
+    var btn = document.createElement("BUTTON");
+    btn.className = "card-body prev-search";
+    btn.innerHTML = user;
+    document.getElementById("search-buttons").append(btn);
+}
+
+//================store items in local storage===============//
 var storeItems = function (searchRes) {
     const locInput = searchRes
-    console.log(locInput)
 
     let weatherStorage;
 
@@ -52,13 +59,16 @@ var storeItems = function (searchRes) {
 
 //======== Local Storage Recall  ======//
 function activateLocal(list) {
-    list.preventDefault
-    for (i=0; i<5;i++) {
-        var weatherListItem = $(".local-store");
-        weatherListItem.text(list);
+    for (i = 0; i < list.length; i++) {
+        var listCheck = i
+        if (listCheck < 4) {
+            createButton(list[i])
+        } else {
+            createButton("Clear Results")
+            break
+        }
     }
 }
-
 
 //===========Using this to capture the information put inside the input field====//
 var formSubmitHandler = function (event) {
@@ -94,7 +104,7 @@ var todayDisplay = function (data) {
     } else if (currentIcon === "Clouds") {
         IconEl.addClass("oi oi-sun")
     } else if (currentIcon === "Rain") {
-        iconEl.addClass("oi oi-rain")
+        IconEl.addClass("oi oi-rain")
     }
     fiveDayDate(m);
 };
@@ -161,6 +171,7 @@ var fiveDayTemp = function (data) {
     tempArrayContent(tempArray, humidArray, iconArray)
 }
 
+
 //================ Apply icons and information to DOM ===================//
 var tempArrayContent = function (temp, humid, icon) {
     for (i = 0; i < temp.length; i++) {
@@ -180,9 +191,17 @@ var tempArrayContent = function (temp, humid, icon) {
     }
 }
 
-// document.querySelector(".prev-search").addEventListener("submit", function () {
-//     console.log("working")
-// });
+//================Click Event for Past Results================//
+$("#search-buttons").on('click', ".prev-search", function () {
+    var userPastInput = $(this)[0].outerText
+    if (userPastInput === "Clear Results") {
+        localStorage.clear()
+        window.location.reload()
+    } else {
+        getLocalWeather(userPastInput);
+        formSubmitFiveDay(userPastInput);
+    }
+});
 
 activateLocal(list)
 searchBtn.addEventListener("submit", formSubmitHandler);
