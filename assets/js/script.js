@@ -28,9 +28,9 @@ var getLocalWeather = function (user) {
                 alert("Error: " + response.statusText + '. ' + 'Please make sure the format is City, State');
             }
         })
-        // .catch(function (error) {
-        //     alert("Unable to connect to Weather Services");
-        // });
+    .catch(function (error) {
+        alert("Unable to connect to Weather Services");
+    });
 };
 
 var storeItems = function (searchRes) {
@@ -39,24 +39,25 @@ var storeItems = function (searchRes) {
 
     let weatherStorage;
 
-    if(localStorage.getItem('weatherStorage')===null) {
-        weatherStorage=[];
+    if (localStorage.getItem('weatherStorage') === null) {
+        weatherStorage = [];
     } else {
         weatherStorage = JSON.parse(localStorage.getItem("weatherStorage"));
     }
     weatherStorage.push(locInput);
 
-    localStorage.setItem('weatherStorage', JSON.stringify(list) )
+    localStorage.setItem('weatherStorage', JSON.stringify(weatherStorage))
 }
 
 
 //======== Local Storage Recall  ======//
 function activateLocal(list) {
-    for (key in list) {
-      var weatherListItem = $(".local-store");
-      weatherListItem.children().text(list[key]);
+    list.preventDefault
+    for (i=0; i<5;i++) {
+        var weatherListItem = $(".local-store");
+        weatherListItem.text(list);
     }
-  }
+}
 
 
 //===========Using this to capture the information put inside the input field====//
@@ -66,7 +67,7 @@ var formSubmitHandler = function (event) {
     var searchResult = searchEl.value;
     formSubmitFiveDay(searchResult);
 
-    if (searchResult) { 
+    if (searchResult) {
         getLocalWeather(searchResult);
         searchEl.value = "";
     } else {
@@ -178,6 +179,10 @@ var tempArrayContent = function (temp, humid, icon) {
 
     }
 }
+
+// document.querySelector(".prev-search").addEventListener("submit", function () {
+//     console.log("working")
+// });
 
 activateLocal(list)
 searchBtn.addEventListener("submit", formSubmitHandler);
